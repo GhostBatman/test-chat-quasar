@@ -54,13 +54,14 @@ function handleChatMessage(newMessage: IChatMessage, sent = false) {
   messagesMap.value.get(from)?.push({message, sent});
 
   const contact = contactsMap.value.get(from);
-  if (contact) {
-    contact.lastMessage = message;
-  }
   if (contact && from !== selectedContact.value) {
     contact.count += 1;
   }
-
+  if (contact) {
+    contact.lastMessage = message;
+    contactsMap.value.delete(from);
+    contactsMap.value.set(from, contact);
+  }
 }
 
 function newWSMessage(event: MessageEvent<string>) {

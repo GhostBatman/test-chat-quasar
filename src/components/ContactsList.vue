@@ -6,7 +6,7 @@
     <q-scroll-area class="scroll-area">
       <q-list>
         <q-item
-          v-for="[name, contact] in contacts"
+          v-for="[name, contact] in contactsToShow"
           :key="name"
           clickable
           v-ripple
@@ -32,11 +32,14 @@
 </template>
 
 <script setup lang="ts">
-import {defineEmits} from 'vue';
+import {computed, defineEmits} from 'vue';
 import type {IContact} from 'src/types';
 
-defineProps<{ contacts: Map<string, IContact> }>();
+const props = defineProps<{ contacts: Map<string, IContact> }>();
 defineEmits(['select']);
+const contactsToShow = computed(() => {
+  return Array.from(props.contacts).reverse()
+})
 </script>
 
 <style lang="scss" scoped>

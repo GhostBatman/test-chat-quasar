@@ -7,15 +7,19 @@
     />
     <q-toolbar-title>{{ contact }}</q-toolbar-title>
   </q-toolbar>
+
   <div class="full-width full-height flex column">
-    <div class="q-pa-md q-gutter-y-md col-grow flex column justify-end">
-      <q-chat-message
-        v-for="({message, sent}, index) in messages"
-        :key="index"
-        :text="[message]"
-        :sent="sent"
-      />
-    </div>
+    <q-scroll-area class="scroll-area">
+      <div class="q-pa-md q-gutter-y-md col-grow flex column justify-end">
+        <q-chat-message
+          v-for="({message, sent}, index) in messages"
+          :key="index"
+          :text="[message]"
+          :sent="sent"
+        />
+
+      </div>
+    </q-scroll-area>
     <q-separator />
     <div class="q-pa-md row full-width">
       <q-input
@@ -32,6 +36,7 @@
       />
     </div>
   </div>
+
 </template>
 
 <script setup lang="ts">
@@ -52,6 +57,6 @@ function sendMessage() {
 </script>
 <style lang="scss" scoped>
 .scroll-area {
-  flex-grow: 1;
+  height: calc(100vh - 120px);
 }
 </style>
